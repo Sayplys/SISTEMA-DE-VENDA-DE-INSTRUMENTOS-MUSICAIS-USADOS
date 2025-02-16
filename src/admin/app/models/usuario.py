@@ -15,4 +15,4 @@ class Usuario(Base):
 
     endereco = relationship('Endereco', back_populates='usuario') # Relação 1:N entre Usuário e Endereço
 
-    produto = relationship('Produto', back_populates='usuario') # Relação 1:N entre Usuário e Proo
+    produto = relationship('Produto', back_populates='usuario') # Relação 1:N entre Usuário e Produto
