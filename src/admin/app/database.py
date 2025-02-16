@@ -7,6 +7,7 @@ with open('src/admin/app/settings.json') as config:
 
 DATABASE_URL = f"mysql+pymysql://{settings['database']['user']}:{settings['database']['password']}@{settings['database']['host']}:{settings['database']['port']}"
 
+# Create connection
 engine = create_engine(DATABASE_URL, echo=False)
 
 def create_database():
@@ -33,6 +34,7 @@ def create_database():
 
 create_database()
 
-engine = create_engine(DATABASE_URL, echo=True)
+# Return connection after 'DATABASE_URL' update
+engine = create_engine(DATABASE_URL, echo=False)
 
 base = declarative_base()
