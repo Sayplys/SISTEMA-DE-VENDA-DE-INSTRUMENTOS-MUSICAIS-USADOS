@@ -37,4 +37,4 @@ create_database()
 # Return connection after 'DATABASE_URL' update
 engine = create_engine(DATABASE_URL, echo=False)
 
-base = declarative_base()
+Base = declarative_base()
