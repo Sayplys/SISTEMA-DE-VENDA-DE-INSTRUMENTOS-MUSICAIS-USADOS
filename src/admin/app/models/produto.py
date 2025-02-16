@@ -14,4 +14,4 @@ class Produto(Base):
 
     usuario_id = Column(Integer, ForeignKey='usuario.id', nullable=False)
 
-    usuario = relationship('Usuario', back_populates='produto')
+    usuario = relationship('Usuario', back_populates='produto') # Relação 1:N entre Usuário e Produto
