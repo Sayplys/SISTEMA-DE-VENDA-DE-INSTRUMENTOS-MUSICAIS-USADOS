@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models.produto import Produto
-from config.database import get_db
+from ..models.produto import Produto
+from ..database import get_db
 
 router = APIRouter()
 
@@ -50,7 +50,7 @@ def update_produto(produto_id: int, produto: Produto, db: Session = Depends(get_
 @router.delete("/produtos/{produto_id}", response_model=Produto)
 def delete_produto(produto_id: int, db: Session = Depends(get_db)):
     db_produto = db.query(Produto).filter(Produto.id == produto_id).first()
-
+    
     if not db_produto:
         raise HTTPException(status_code=404, detail="Produto não encontrado")
     

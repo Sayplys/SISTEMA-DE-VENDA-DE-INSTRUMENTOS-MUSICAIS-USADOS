@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from .routes import usuario, venda, produto
 from sqlalchemy import create_engine, text
-from config.database import engine, settings, database_exists
+from admin.app.database import engine, settings, database_exists
 
 # Cria o banco de dados, se não existir
 def create_database():

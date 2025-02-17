@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, DECIMAL, Boolean
 from sqlalchemy.orm import relationship
-from admin.app.config.database import Base
+from ..database import Base
 
 class FormaPagamento(Base):
     __tablename__ = 'forma_de_pagamento'
