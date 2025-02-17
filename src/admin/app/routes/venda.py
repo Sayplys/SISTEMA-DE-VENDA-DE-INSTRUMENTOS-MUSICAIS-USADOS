@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from models.venda import Venda
-from admin.app.config.database import get_db
+from config.database import get_db
 
 router = APIRouter()
 
@@ -12,6 +12,12 @@ def create_venda(venda: Venda, db: Session = Depends(get_db)):
     db.refresh(venda)
 
     return venda
+
+@router.get("/vendas/", response_model=list[Venda])
+def get_vendas(db: Session = Depends(get_db)):
+    vendas = db.query(Venda).all()
+
+    return vendas
 
 @router.get("/vendas/{venda_id}", response_model=Venda)
 def get_venda(venda_id: int, db: Session = Depends(get_db)):

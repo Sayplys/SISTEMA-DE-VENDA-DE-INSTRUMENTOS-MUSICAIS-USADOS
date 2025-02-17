@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from models.produto import Produto
-from admin.app.config.database import get_db
+from config.database import get_db
 
 router = APIRouter()
 
@@ -12,6 +12,12 @@ def create_produto(produto: Produto, db: Session = Depends(get_db)):
     db.refresh(produto)
 
     return produto
+
+@router.get("/produtos/", response_model=list[Produto])
+def get_produtos(db: Session = Depends(get_db)):
+    produtos = db.query(Produto).all()
+
+    return produtos
 
 @router.get("/produtos/{produto_id}", response_model=Produto)
 def get_produto(produto_id: int, db: Session = Depends(get_db)):
@@ -50,5 +56,5 @@ def delete_produto(produto_id: int, db: Session = Depends(get_db)):
     
     db.delete(db_produto)
     db.commit()
-
+    
     return db_produto
