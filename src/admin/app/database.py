@@ -2,13 +2,12 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 import json
 
-# Carregar configurações do arquivo JSON
 with open('src/admin/app/settings.json') as config:
     settings = json.load(config)
 
 DATABASE_URL = f"mysql+pymysql://{settings['database']['user']}:{settings['database']['password']}@{settings['database']['host']}:{settings['database']['port']}"
 
-# Criar engine de conexão
+# Cria a engine de conexão
 engine = create_engine(DATABASE_URL, echo=False)
 
 def database_exists(connection, db_name: str) -> bool:
@@ -18,6 +17,7 @@ def database_exists(connection, db_name: str) -> bool:
     return result is not None
 
 def create_database():
+    # Cria o banco de dados, se não existir
     try:
         with engine.connect() as connection:
             if database_exists(connection, settings['database']['db_name']):
@@ -35,15 +35,18 @@ def create_database():
         print(f"Erro ao tentar criar o banco de dados: {e}\n")
         return None
 
+# Tenta criar o banco e atualizar a URL de conexão
 DATABASE_URL = create_database() or DATABASE_URL
 
+# Cria a engine com a URL de conexão atualizada
 engine = create_engine(DATABASE_URL, echo=False)
 
-# Configuração da base e sessão
+# Configurar a base e a sessão
 Base = declarative_base()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_db():
+    # Inicializa uma sessão no banco de dados
     db = SessionLocal()
     try:
         yield db
