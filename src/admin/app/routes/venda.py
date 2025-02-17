@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from models.venda import Venda
-from database import get_db
+from admin.app.config.database import get_db
 
 router = APIRouter()
 
@@ -48,5 +48,5 @@ def delete_venda(venda_id: int, db: Session = Depends(get_db)):
     
     db.delete(db_venda)
     db.commit()
-    
+
     return db_venda

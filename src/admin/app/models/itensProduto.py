@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from database import Base
+from admin.app.config.database import Base
 
 class ItensProduto(Base):
     __tablename__ = 'itens_produto'
