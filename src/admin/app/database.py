@@ -5,7 +5,7 @@ import json
 with open('src/admin/app/settings.json') as config:
     settings = json.load(config)
 
-DATABASE_URL = f"mysql+pymysql://{settings['database']['user']}:{settings['database']['password']}@{settings['database']['host']}:{settings['database']['port']}"
+DATABASE_URL = f"mysql+pymysql://{settings['database']['user']}:{settings['database']['password']}@{settings['database']['host']}:{settings['database']['port']}/{settings['database']['db_name']}"
 
 # Cria a engine de conexão
 engine = create_engine(DATABASE_URL, echo=False)
