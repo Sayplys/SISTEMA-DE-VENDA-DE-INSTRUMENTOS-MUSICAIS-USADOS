@@ -10,7 +10,7 @@ class Compra(Base):
     data_compra = Column(Date, nullable=False)
     status = Column(String(20))
 
-    pedido_id = Column(Integer, ForeignKey='pedido.id', nullable=False)
+    pedido_id = Column(Integer, ForeignKey('pedido.id'), nullable=False)
     
     pedido = relationship('Pedido', back_populates='compra') # Relação 1:N entre Pedido e Compra
     pagamento = relationship('Pagamento', back_populates='compra') # Relação 1:N entre Compra e Pagamento

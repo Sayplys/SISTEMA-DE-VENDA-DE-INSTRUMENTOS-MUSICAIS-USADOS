@@ -14,7 +14,7 @@ class Produto(Base):
     preco = Column(DECIMAL(10,2), nullable=False)
     imagem = Column(String, nullable=True)
 
-    usuario_id = Column(Integer, ForeignKey='usuario.id', nullable=False)
+    usuario_id = Column(Integer, ForeignKey('usuario.id'), nullable=False)
     
     usuario = relationship('Usuario', back_populates='produto') # Relação 1:N entre Usuário e Produto
     itens = relationship('itensProduto', back_populates='produto') # Relação 1:N entre Itens Produto e Produto
