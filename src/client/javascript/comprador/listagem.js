@@ -1,6 +1,6 @@
 // listagem.js
 
-import { fetchProdutos } from './api.js';
+import { fetchProdutos } from '../api/produtos/getProdutos.js';
 
 // Função para exibir os produtos na página
 function exibirProdutos(produtos) {
