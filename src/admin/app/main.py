@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import usuario, venda, produto
+from .routes import usuario, venda, produto
 from sqlalchemy import create_engine, text
 from config.database import engine, settings, database_exists
 

@@ -3,3 +3,6 @@ venv/
 
 # Ignore settings
 settings.json
+
+# Ignore __pycache__
+__pycache__
