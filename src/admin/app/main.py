@@ -1,8 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
-from .models import *
-from .routes import usuario, venda, produto
+from .models.usuario import Usuario
+from .models.endereco import Endereco
+from .models.produto import Produto
+from .models.pedido import Pedido
+from .models.itensProduto import ItensProduto
+from .models.compra import Compra
+from .models.formaPagamento import FormaPagamento
+from .models.pagamento import Pagamento
+from .models.venda import Venda
+from .routes import usuario, venda, produto, pedido, pagamento, itensProduto, formaPagamento, endereco, compra
 from .database import Base, engine, settings, database_exists
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -38,5 +46,11 @@ app.add_middleware(
 
 # Rotas das APIs
 app.include_router(usuario.router, prefix="/api", tags=["Usuários"])
-app.include_router(venda.router, prefix="/api", tags=["Vendas"])
+app.include_router(endereco.router, prefix="/api", tags=["Endereço"])
 app.include_router(produto.router, prefix="/api", tags=["Produtos"])
+app.include_router(venda.router, prefix="/api", tags=["Vendas"])
+app.include_router(compra.router, prefix="/api", tags=["Compras"])
+app.include_router(pedido.router, prefix="/api", tags=["Pedidos"])
+app.include_router(pagamento.router, prefix="/api", tags=["Pagamentos"])
+app.include_router(itensProduto.router, prefix="/api", tags=["Itens do Produto"])
+app.include_router(formaPagamento.router, prefix="/api", tags=["Forma de Pagamento"])
