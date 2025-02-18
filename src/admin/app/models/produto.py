@@ -12,7 +12,7 @@ class Produto(Base):
     familia = Column(String(50))
     grupo = Column(String(50))
     preco = Column(DECIMAL(10,2), nullable=False)
-    imagem = Column(String, nullable=True)
+    imagem = Column(String(100), nullable=True)
 
     usuario_id = Column(Integer, ForeignKey('usuario.id'), nullable=False)
     

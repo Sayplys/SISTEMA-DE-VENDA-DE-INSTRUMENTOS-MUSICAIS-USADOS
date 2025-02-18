@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-from .routes import usuario, venda, produto
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
+from .models import *
+from .routes import usuario, venda, produto
 from .database import Base, engine, settings, database_exists
 
 # Cria o banco de dados, se não existir
@@ -19,8 +21,19 @@ def create_database():
 
 create_database()
 
+Base.metadata.create_all(bind=engine)
+
 # Inicializa o FastAPI
 app = FastAPI()
+
+# Configuração do CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],  # Substitua pelo endereço do seu frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # Permite todos os cabeçalhos
+)
 
 # Rotas das APIs
 app.include_router(usuario.router, prefix="/api", tags=["Usuários"])

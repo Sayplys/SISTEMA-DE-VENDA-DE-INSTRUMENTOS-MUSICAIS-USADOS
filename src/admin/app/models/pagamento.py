@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, ForeignKey, Date, DECIMAL
 from sqlalchemy.orm import relationship
 from ..database import Base
+from .formaPagamento import FormaPagamento
 
 class Pagamento(Base):
     __tablename__ = 'pagamento'
@@ -12,6 +13,6 @@ class Pagamento(Base):
     forma_pagamento_id = Column(Integer, ForeignKey("forma_de_pagamento.id"))
     compra_id = Column(Integer, ForeignKey("compra.id"))
 
-    compra = relationship('Compra', back_populates='pagamento') # Relação 1:N entre Pagamento e Compra
-    forma_pagamento = relationship('FormaPagamento', back_populates='pagamento') # Relação 1:1 entre Forma de Pagamento e Pagamento
-    venda = relationship('venda', back_populates='pagamento') # Relação 1:N entre Pagamento e Venda
+    compra = relationship('Compra', back_populates='pagamento')  # Relação 1:N entre Pagamento e Compra
+    forma_pagamento = relationship('FormaPagamento', back_populates='pagamento')  # Relação 1:1 entre Forma de Pagamento e Pagamento
+    venda = relationship('Venda', back_populates='pagamento')  # Relação 1:N entre Pagamento e Venda

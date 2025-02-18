@@ -3,10 +3,10 @@ from datetime import date
 
 class VendaBase(BaseModel):
     data_venda: date
-    valor_venda: float
+    valor_venda: float = Field(..., gt=0)
     status_venda: str = Field(..., max_length=20)
-    usuario_id: str = Field(..., max_length=20)
-    pagamento_id: str = Field(..., max_length=10)
+    usuario_id: int
+    pagamento_id: int
 
 class VendaCreate(VendaBase):
     pass

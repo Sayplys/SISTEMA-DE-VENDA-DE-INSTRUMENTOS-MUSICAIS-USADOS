@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Optional
 
 class UsuarioBase(BaseModel):
-    nome: Optional[str] = Field(None, max_length=50)
+    nome: Optional[str] = Field(..., max_length=50)
     cpf: str = Field(..., max_length=11)
     email: str = Field(..., max_length=50)
     senha: str = Field(..., max_length=100)

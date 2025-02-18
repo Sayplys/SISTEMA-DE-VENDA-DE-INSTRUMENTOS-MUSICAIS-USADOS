@@ -14,4 +14,4 @@ class Venda(Base):
     pagamento_id = Column(Integer, ForeignKey('pagamento.id'), nullable=False)
 
     usuario = relationship('Usuario', back_populates='venda') # Relação 1:N entre Usuário e Venda
-    pagamento = relationship('Pagamento', back_populates='venda ') # Relação 1:N entre Venda e Pagamento
+    pagamento = relationship('Pagamento', back_populates='venda') # Relação 1:N entre Venda e Pagamento
