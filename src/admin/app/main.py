@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from .models import *
 from .routes import usuario, venda, produto
 from .database import Base, engine, settings, database_exists
+from fastapi.middleware.cors import CORSMiddleware
 
 # Cria o banco de dados, se não existir
 def create_database():
