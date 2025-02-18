@@ -1,6 +1,6 @@
 // listagem.js
 
-import { fetchProdutos } from '../api/produtos/getProdutos.js';
+import { getProdutos } from '../api/apiProdutos.mjs';
 
 // Função para exibir os produtos na página
 function exibirProdutos(produtos) {
@@ -37,7 +37,7 @@ function filtrarProdutos(produtos, busca, categoria) {
 
 // Função principal para carregar a página
 async function carregarPagina() {
-  const produtos = await fetchProdutos();
+  const produtos = await getProdutos(10);
 
   // Exibe todos os produtos inicialmente
   exibirProdutos(produtos);
