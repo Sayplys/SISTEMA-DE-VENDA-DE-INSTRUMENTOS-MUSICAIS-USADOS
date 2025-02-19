@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import create_engine, text
+
+# Importacao das models
 from .models.usuario import Usuario
 from .models.endereco import Endereco
 from .models.produto import Produto
@@ -10,9 +12,12 @@ from .models.compra import Compra
 from .models.formaPagamento import FormaPagamento
 from .models.pagamento import Pagamento
 from .models.venda import Venda
+
+# Importacao das requisicoes HTTP
 from .routes import usuario, venda, produto, pedido, pagamento, itensProduto, formaPagamento, endereco, compra
+
+# Importacao das configuracoes do banco de dados
 from .database import Base, engine, settings, database_exists
-from fastapi.middleware.cors import CORSMiddleware
 
 # Cria o banco de dados, se não existir
 def create_database():
