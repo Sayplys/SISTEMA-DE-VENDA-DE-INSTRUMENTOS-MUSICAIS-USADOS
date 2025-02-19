@@ -1,6 +1,6 @@
 // home.js
 
-import { fetchProdutos } from './api/apiProdutos.js';
+import { getProdutos } from './api/apiProdutos.mjs';
 
 // Função para exibir os produtos na página
 function exibirProdutos(produtos) {
@@ -28,7 +28,7 @@ function exibirProdutos(produtos) {
 // Função principal para carregar a página
 async function carregarPagina() {
   // Busca os últimos 3 produtos (ou outro número especificado)
-  const produtos = await fetchProdutos(3);
+  const produtos = await getProdutos(3);
   exibirProdutos(produtos);
 }
 
