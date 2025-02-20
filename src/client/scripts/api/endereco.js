@@ -23,7 +23,7 @@ export async function createEndereco(endereco) {
 }
 
 // Função para buscar todos os endereços
-export async function getEnderecos(qnt = 3) {
+export async function getEnderecos(qnt) {
   try {
     const response = await fetch(`${API_BASE_URL}/api/enderecos/`);
 
@@ -31,6 +31,9 @@ export async function getEnderecos(qnt = 3) {
       throw new Error("Erro ao buscar endereços");
     }
 		
+		if (qnt === undefined) {
+			return await response.json();
+		}
 		const enderecos = await response.json();
 		return enderecos.slice(0, qnt);
   } catch (error) {

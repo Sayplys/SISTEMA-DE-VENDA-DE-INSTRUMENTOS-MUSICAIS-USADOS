@@ -4,7 +4,6 @@ import { createUsuario, getUsuarios } from "/scripts/api/usuario.js";
 async function buscarUsuarioPorEmail(email) {
   try {
     const usuarios = await getUsuarios(); // Busca todos os usuários
-		console.log(usuarios);
     const usuario = usuarios.find((user) => user.email === email); // Filtra pelo e-mail
     return usuario || null; // Retorna o usuário encontrado ou null
   } catch (error) {

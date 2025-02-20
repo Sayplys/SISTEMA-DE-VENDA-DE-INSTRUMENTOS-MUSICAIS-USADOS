@@ -23,7 +23,7 @@ export async function createFormaPagamento(formaPagamento) {
 }
 
 // Função para buscar todas as formas de pagamento
-export async function getFormasPagamento(qnt = 3) {
+export async function getFormasPagamento(qnt) {
   try {
     const response = await fetch(`${API_BASE_URL}/api/formas-pagamento/`);
 
@@ -32,6 +32,9 @@ export async function getFormasPagamento(qnt = 3) {
     }
 		
 		const formasPagamento = await response.json();
+		if (qnt === undefined) {
+			return formasPagamento;
+		}
 		return formasPagamento.slice(0, qnt);
   } catch (error) {
     console.error("Erro:", error);

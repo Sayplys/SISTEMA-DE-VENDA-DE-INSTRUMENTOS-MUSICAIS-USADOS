@@ -1,6 +1,5 @@
 import { getUsuarioById, updateUsuario, deleteUsuario } from "../../scripts/api/usuario.js";
 import { getEnderecos, createEndereco, updateEndereco, deleteEndereco } from "../../scripts/api/endereco.js";
-import { getFormasPagamento, createFormaPagamento, deleteFormaPagamento } from "../../scripts/api/formaPagamento.js";
 
 // Obtém o ID do usuário a partir do cookie
 const usuarioId = document.cookie
@@ -28,8 +27,13 @@ async function carregarInformacoesUsuario() {
 async function carregarEndereco() {
   try {
     const enderecos = await getEnderecos();
-    const enderecoUsuario = enderecos.find((endereco) => endereco.usuario_id === usuarioId);
-
+    let enderecoUsuario = null;
+		for (const endereco of enderecos) {
+			if (endereco.usuario_id == usuarioId) {
+				enderecoUsuario = endereco;
+				break;
+			}
+		}
     if (enderecoUsuario) {
       document.getElementById("cep").value = enderecoUsuario.cep;
       document.getElementById("rua").value = enderecoUsuario.rua;
@@ -42,40 +46,6 @@ async function carregarEndereco() {
   }
 }
 
-// Função para carregar as formas de pagamento do usuário
-async function carregarFormasPagamento() {
-  try {
-    const formasPagamento = await getFormasPagamento();
-    const formasPagamentoUsuario = formasPagamento.filter((forma) => forma.usuario_id === usuarioId);
-
-    const listaPagamentos = document.getElementById("lista-pagamentos");
-    listaPagamentos.innerHTML = formasPagamentoUsuario
-      .map(
-        (forma) => `
-          <li>
-            Parcelamento: ${forma.parcelamento}, Desconto: ${forma.desconto}%, 
-            Taxa de Juros: ${forma.taxa_juros}%, Ativo: ${forma.ativo ? "Sim" : "Não"}
-            <button onclick="removerFormaPagamento(${forma.id})">Remover</button>
-          </li>
-        `
-      )
-      .join("");
-  } catch (error) {
-    console.error("Erro ao carregar formas de pagamento:", error);
-  }
-}
-
-// Função para remover uma forma de pagamento
-window.removerFormaPagamento = async (formaPagamentoId) => {
-  try {
-    await deleteFormaPagamento(formaPagamentoId);
-    alert("Forma de pagamento removida com sucesso!");
-    carregarFormasPagamento(); // Recarrega a lista de formas de pagamento
-  } catch (error) {
-    console.error("Erro ao remover forma de pagamento:", error);
-    alert("Erro ao remover forma de pagamento.");
-  }
-};
 
 // Função para salvar as informações do usuário
 document.getElementById("form-usuario").addEventListener("submit", async (e) => {
@@ -112,7 +82,17 @@ document.getElementById("form-endereco").addEventListener("submit", async (e) =>
 
   try {
     const enderecos = await getEnderecos();
-    const enderecoExistente = enderecos.find((end) => end.usuario_id === usuarioId);
+		let enderecoExistente = null;
+		console.log(enderecos);
+		for (const endereco of enderecos) {
+			console.log(endereco.usuario_id);
+			console.log(usuarioId);	
+			if (endereco.usuario_id == usuarioId) {
+				enderecoExistente = endereco;
+				break;
+			}
+		}
+		console.log(enderecoExistente);
 
     if (enderecoExistente) {
       await updateEndereco(enderecoExistente.id, endereco);
@@ -129,27 +109,6 @@ document.getElementById("form-endereco").addEventListener("submit", async (e) =>
   }
 });
 
-// Função para adicionar uma forma de pagamento
-document.getElementById("form-pagamento").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const formaPagamento = {
-    parcelamento: parseInt(document.getElementById("parcelamento").value),
-    desconto: parseFloat(document.getElementById("desconto").value),
-    taxa_juros: parseFloat(document.getElementById("taxa_juros").value),
-    ativo: document.getElementById("ativo").checked,
-    usuario_id: usuarioId,
-  };
-
-  try {
-    await createFormaPagamento(formaPagamento);
-    alert("Forma de pagamento adicionada com sucesso!");
-    carregarFormasPagamento();
-  } catch (error) {
-    console.error("Erro ao adicionar forma de pagamento:", error);
-    alert("Erro ao adicionar forma de pagamento.");
-  }
-});
-
 // Função para remover a conta do usuário
 document.getElementById("remover-conta").addEventListener("click", async () => {
   const confirmacao = confirm("Tem certeza que deseja remover sua conta? Esta ação não pode ser desfeita.");
@@ -158,17 +117,12 @@ document.getElementById("remover-conta").addEventListener("click", async () => {
   try {
     // Remove o endereço do usuário (se existir)
     const enderecos = await getEnderecos();
-    const enderecoUsuario = enderecos.find((end) => end.usuario_id === usuarioId);
 		for (const endereco of enderecos) {
-			await deleteEndereco(endereco.id);
+			if (endereco.usuario_id == usuarioId) {
+				await deleteEndereco(endereco.id);
+				break;
+			}
 		}
-
-    // Remove as formas de pagamento do usuário
-    const formasPagamento = await getFormasPagamento();
-    const formasPagamentoUsuario = formasPagamento.filter((forma) => forma.usuario_id === usuarioId);
-    for (const forma of formasPagamentoUsuario) {
-      await deleteFormaPagamento(forma.id);
-    }
 
     // Remove o usuário
     await deleteUsuario(usuarioId);
