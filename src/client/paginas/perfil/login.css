@@ -49,34 +49,55 @@ main {
   padding: 2rem;
 }
 
-.destaque h2 {
-  text-align: center;
+.perfil-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-container h2 {
+  margin-bottom: 1.5rem;
+}
+
+.info-usuario,
+.endereco,
+.metodos-pagamento {
   margin-bottom: 2rem;
 }
 
-.instrumentos-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.instrumento-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  width: 30%;
+.info-usuario h3,
+.endereco h3,
+.metodos-pagamento h3 {
   margin-bottom: 1rem;
-  text-align: center;
 }
 
-.instrumento-card img {
-  max-width: 100%;
-  border-radius: 8px;
+.info-usuario p,
+.endereco p {
+  margin-bottom: 0.5rem;
 }
 
-.instrumento-card h3 {
-  margin: 1rem 0;
+button {
+  padding: 0.5rem 1rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.metodos-pagamento ul {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+.metodos-pagamento ul li {
+  margin-bottom: 0.5rem;
 }
 
 footer {
@@ -94,11 +115,4 @@ footer .footer-links a {
   color: #fff;
   text-decoration: none;
   margin: 0 1rem;
-}
-
-footer .footer-social a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 0.5rem;
-  font-size: 1.2rem;
 }

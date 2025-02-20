@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Loja de Instrumentos</title>
+  <link rel="stylesheet" href="cadastro.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Loja de Instrumentos</div>
+      <ul>
+        <li><a href="/index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="cadastro-container">
+      <h2>Cadastro</h2>
+      <form id="cadastro-form">
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+        <div class="form-group">
+          <label for="cpf">CPF:</label>
+          <input type="text" id="cpf" name="cpf" required>
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" required>
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone:</label>
+          <input type="text" id="telefone" name="telefone" required>
+        </div>
+        <div class="form-group">
+          <label for="nivel_acesso">Nível de Acesso:</label>
+          <select id="nivel_acesso" name="nivel_acesso" required>
+            <option value="user">Usuário</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+        <button type="submit">Cadastrar</button>
+      </form>
+      <p>Já tem uma conta? <a href="login.html">Faça login</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#">Contato</a>
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="/scripts/perfil/cadastro.js"></script>
+</body>
+</html>
